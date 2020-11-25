@@ -55,6 +55,19 @@ app.get('/contact', function(req,res){
     res.sendFile(__dirname + '/public/contact.html');
 });
 
+app.get('/product', function(req,res){
+    res.redirect('/#product');
+});
+app.get('/usecases', function(req,res){
+    res.redirect('/#usecases');
+});
+app.get('/insights', function(req,res){
+    res.redirect('/#insights');
+});
+app.get('/about', function(req,res){
+    res.redirect('/#about');
+});
+
 webserver.listen(port, function() {
     logger.info('SCREEN app listening on port: ' + port);
 
