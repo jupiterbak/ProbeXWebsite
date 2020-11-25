@@ -11,7 +11,7 @@ var webserver = http.createServer(app);
 var io = require('socket.io').listen(webserver);
 
 
-port = process.env.PORT || 8095;
+port = process.env.PORT || 80;
 
 /*#####################################################################################*/
 /* Winston
