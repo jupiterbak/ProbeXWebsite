@@ -68,6 +68,18 @@ app.get('/about', function(req,res){
     res.redirect('/#about');
 });
 
+app.get('/vision', function(req,res){
+    res.redirect('/');
+});
+
+app.get('/case_study', function(req,res){
+    res.redirect('/');
+});
+
+app.all('*', (req, res) => {
+    res.sendFile(__dirname + '/public/404.html');
+});
+
 webserver.listen(port, function() {
     logger.info('SCREEN app listening on port: ' + port);
 
