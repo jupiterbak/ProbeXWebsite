@@ -9,7 +9,7 @@ var express = require('express'),
 var bodyParser     =        require("body-parser");
 var webserver = http.createServer(app);
 var io = require('socket.io').listen(webserver);
-
+var nodemailer = require('nodemailer');
 
 port = process.env.PORT || 80;
 
@@ -43,6 +43,16 @@ io.on('connection', function(socket) {
 	});
 });
 
+/*#####################################################################################*/
+/* MAil recipient
+/*#####################################################################################*/
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'jupiter.bakakeu@gmail.com',
+      pass: 'BAK$850rom'
+    }
+  });
  
 /*#####################################################################################*/
 /*WEB Server		
@@ -53,6 +63,26 @@ app.use(bodyParser.json());
 
 app.get('/contact', function(req,res){
     res.sendFile(__dirname + '/public/contact.html');
+});
+
+app.post('/mail', function(req,res){
+    var mailOptions = {
+        from: 'jupiter.bakakeu@gmail.com',
+        to: 'jupiter.bakakeu@yahoo.com;Dominik.Kisskalt@faps.fau.de',
+        subject: 'New contact mail from probeX.io Website',
+        text: req.body
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+    
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ err:null}));
 });
 
 app.get('/product', function(req,res){
