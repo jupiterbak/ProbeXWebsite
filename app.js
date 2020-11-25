@@ -76,6 +76,10 @@ app.get('/case_study', function(req,res){
     res.redirect('/');
 });
 
+app.get('/legal-notices', function(req,res){
+    res.sendFile(__dirname + '/public/legal-notices.html');
+});
+
 app.all('*', (req, res) => {
     res.sendFile(__dirname + '/public/404.html');
 });
