@@ -513,6 +513,10 @@ p {
   line-height: 1.8
 }
 
+h3 {
+  margin: 50px 0 0;
+}
+
 p.no-margin {
   margin: 0
 }
