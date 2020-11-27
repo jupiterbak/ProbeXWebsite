@@ -5,7 +5,9 @@ const fs = require('fs');
 const path = require('path');
 var http = require('http');
 var express = require('express'),
-	app = module.exports.app = express();
+    app = module.exports.app = express();
+var morgan = require('morgan');
+var rfs = require('rotating-file-stream'); // version 2.x
 var bodyParser     =        require("body-parser");
 var webserver = http.createServer(app);
 var io = require('socket.io').listen(webserver);
@@ -30,6 +32,15 @@ const logger = winston.createLogger({
     ),
     defaultMeta: { service: 'FAPS SCREEN' },
 });
+
+/*#####################################################################################*/
+/* Initialze Morgan library
+/*#####################################################################################*/
+// create a rotating write stream
+var accessLogStream = rfs.createStream('access.log', {
+    interval: '1d', // rotate daily
+    path: path.join(__dirname, 'log')
+  });
 
 /*#####################################################################################*/
 /* Socket IO
@@ -57,6 +68,8 @@ var transporter = nodemailer.createTransport({
 /*#####################################################################################*/
 /*WEB Server		
 /*#####################################################################################*/
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
