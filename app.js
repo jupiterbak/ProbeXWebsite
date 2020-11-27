@@ -79,20 +79,20 @@ app.get('/contact', function(req,res){
 });
 
 app.post('/mail', function(req,res){
-    var mailOptions = {
-        from: 'jupiter.bakakeu@gmail.com',
-        to: 'jupiter.bakakeu@yahoo.com;Dominik.Kisskalt@faps.fau.de',
-        subject: 'New contact mail from probeX.io Website',
-        text: req.body
-      };
+    // var mailOptions = {
+    //     from: 'jupiter.bakakeu@gmail.com',
+    //     to: 'jupiter.bakakeu@yahoo.com;Dominik.Kisskalt@faps.fau.de',
+    //     subject: 'New contact mail from probeX.io Website',
+    //     text: req.body
+    //   };
       
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
+    //   transporter.sendMail(mailOptions, function(error, info){
+    //     if (error) {
+    //       console.log(error);
+    //     } else {
+    //       console.log('Email sent: ' + info.response);
+    //     }
+    //   });
     
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ err:null}));
